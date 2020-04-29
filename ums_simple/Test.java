@@ -1,4 +1,4 @@
-package ums;
+package ums_simple;
 
 public class Test {
     public static void main(String[] args) {

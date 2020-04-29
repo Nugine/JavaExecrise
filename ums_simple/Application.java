@@ -1,4 +1,4 @@
-package ums;
+package ums_simple;
 
 import java.util.Scanner;
 
