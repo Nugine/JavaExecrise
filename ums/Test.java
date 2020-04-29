@@ -16,7 +16,7 @@ public class Test {
                     System.out.println("退出测试界面");
                     flag = false;
                     break;
-                case "registe": // shoule be "register"
+                case "registe": // should be "register"
                     app.registe();
                     break;
                 case "login":
