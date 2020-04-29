@@ -7,10 +7,6 @@ public class Application {
 
     public void registe() {
         Scanner sc = new Scanner(System.in);
-        // Resource leak: 'sc' is never closed.
-        // But `System.in` should not be closed here.
-        // How to get rid of it?
-        // Java sucks!
 
         String userName = null;
         String password = null;
