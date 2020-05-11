@@ -5,9 +5,9 @@ import java.util.Scanner;
 public class Application {
     private UserDao userDao;
 
-    public void registe() {
-        Scanner sc = new Scanner(System.in);
+    private Scanner sc = null;
 
+    public void registe() {
         String userName = null;
         String password = null;
 
@@ -42,8 +42,6 @@ public class Application {
     }
 
     public void login() {
-        Scanner sc = new Scanner(System.in);
-
         User user = null;
 
         for (;;) {
@@ -68,6 +66,7 @@ public class Application {
 
     public Application(UserDao userDao) {
         this.userDao = userDao;
+        this.sc = new Scanner(System.in);
     }
 
     public void setUserDao(UserDao userDao) {
