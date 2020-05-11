@@ -1,12 +1,12 @@
 package ums.gui;
 
-import java.awt.Panel;
-
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -23,77 +23,62 @@ public class SearchDialog extends JDialog {
 	 */
 	private static final long serialVersionUID = 8595408149994475854L;
 
-	private UserDao userDao;
+	private final UserDao userDao;
 
-	private JLabel labelName = new JLabel("Email");
-	private JTextField userEmail = new JTextField(20);
-	private JButton buttonSearch = new JButton("查询");
+	private final JLabel labelName = new JLabel("Email");
+	private final JTextField textFieldUserEmail = new JTextField(20);
+	private final JButton buttonSearch = new JButton("查询");
 
-	private int windowHeight = 120;
-	private int windowWidth = 400;
+	private final int windowHeight = 120;
+	private final int windowWidth = 400;
 
-	public SearchDialog(JFrame parent, String msg, UserDao userDao) {
+	private final JFrame parent;
+
+	public SearchDialog(final JFrame parent, final String msg, final UserDao userDao) {
 		super(parent, msg, true);
+		this.parent = parent;
 		this.userDao = userDao;
+
+		final JPanel panel = new JPanel();
+		panel.add(labelName);
+		panel.add(textFieldUserEmail);
+		panel.add(buttonSearch);
+		this.add(panel);
+
+		buttonSearch.addActionListener(new ButtonSearchByEmailHandler());
+		this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		
+		this.setPosition();
+		this.validate();
 	}
 
-	public void showMe(JFrame parent) {
-		Panel pSouth = new Panel();
-		pSouth.add(buttonSearch);
-
-		Panel pCenter = new Panel();
-		pCenter.add(labelName);
-		pCenter.add(userEmail);
-		pCenter.add(pSouth);
-
-		addEventHandler(parent);
-
-		add(pCenter);
-
-		setPosition(parent);
-		setVisible(true);
-		validate();
-		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-	}
-
-	private void setPosition(JFrame parent) {
-		// 计算对话框的显示位置
-		int parentX = parent.getX();
-		int parentY = parent.getY();
-		int parentWidth = parent.getWidth();
-		int parentHeight = parent.getHeight();
-		int dialogX = parentX + (parentWidth - windowWidth) / 2;
-		int dialogY = parentY + (parentHeight - windowHeight) / 2 + 40;
+	private void setPosition() {
+		final int parentX = parent.getX();
+		final int parentY = parent.getY();
+		final int parentWidth = parent.getWidth();
+		final int parentHeight = parent.getHeight();
+		final int dialogX = parentX + (parentWidth - windowWidth) / 2;
+		final int dialogY = parentY + (parentHeight - windowHeight) / 2 + 40;
 		this.setBounds(dialogX, dialogY, windowWidth, windowHeight);
 	}
 
-	public void addEventHandler(JFrame parent) {
-		buttonSearch.addActionListener(new ButtonSearchByEmailHandler(parent));
-	}
-
-	private class ButtonSearchByEmailHandler implements ActionListener { // 按 email 查询用户
-		private JFrame parent;
-
-		public ButtonSearchByEmailHandler(JFrame parent) {
-			this.parent = parent;
-		}
-
-		public void actionPerformed(ActionEvent e) {
-			if (userEmail.getText() == null || userEmail.getText().length() == 0) {
+	private class ButtonSearchByEmailHandler implements ActionListener {
+		public void actionPerformed(final ActionEvent e) {
+			if (textFieldUserEmail.getText() == null || textFieldUserEmail.getText().length() == 0) {
 				JOptionPane.showMessageDialog(null, "请输入要查询用户的email", "提示", JOptionPane.PLAIN_MESSAGE);
 				return;
 			}
 
-			User user = userDao.selectByEmail(userEmail.getText());
+			final User user = userDao.selectByEmail(textFieldUserEmail.getText());
 
 			if (user == null) {
 				JOptionPane.showMessageDialog(null, "该用户不存在", "提示", JOptionPane.PLAIN_MESSAGE);
 				return;
 			}
 
-			List<User> resList = new ArrayList<User>();
+			final List<User> resList = new ArrayList<User>();
 			resList.add(user);
-			new ShowDataTableDialog(parent, "查询结果", resList).showMe(parent);
+			new ShowDataTableDialog(parent, "查询结果", resList).setVisible(true);
 		}
 	}
 }

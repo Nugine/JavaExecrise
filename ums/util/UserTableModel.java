@@ -12,24 +12,27 @@ public class UserTableModel extends AbstractTableModel {
 	 */
 	private static final long serialVersionUID = -3549053773085114291L;
 
-	private List<User> users;
+	public static final String[] COLUMN_NAMES = { "序号", "Email", "用户名", "性别", "爱好" };
 
-	private final int COLUMN_COUNT = 5;
+	private final List<User> users;
 
-	public UserTableModel(List<User> users) {
+	public UserTableModel(final List<User> users) {
 		this.users = users;
 	}
 
+	@Override
 	public int getColumnCount() {
-		return COLUMN_COUNT;
+		return COLUMN_NAMES.length;
 	}
 
+	@Override
 	public int getRowCount() {
 		return users.size();
 	}
 
-	public Object getValueAt(int row, int col) {
-		User user = users.get(row);
+	@Override
+	public Object getValueAt(final int row, final int col) {
+		final User user = users.get(row);
 		switch (col) {
 			case 0:
 				return Integer.toString(row + 1);
@@ -45,19 +48,8 @@ public class UserTableModel extends AbstractTableModel {
 		return null;
 	}
 
-	public String getColumnName(int col) {
-		switch (col) {
-			case 0:
-				return "序号";
-			case 1:
-				return "Email";
-			case 2:
-				return "用户名";
-			case 3:
-				return "性别";
-			case 4:
-				return "爱好";
-		}
-		return null;
+	@Override
+	public String getColumnName(final int col) {
+		return COLUMN_NAMES[col];
 	}
 }

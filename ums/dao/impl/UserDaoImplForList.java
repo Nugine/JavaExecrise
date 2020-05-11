@@ -8,16 +8,16 @@ import ums.dao.UserDao;
 import ums.entity.User;
 
 public class UserDaoImplForList implements UserDao {
-	private List<User> users;
+	private final List<User> users;
 
 	public UserDaoImplForList() {
 		users = new ArrayList<User>();
 	}
 
-	public User delete(String email) {
-		Iterator<User> it = users.iterator();
+	public User deleteByEmail(final String email) {
+		final Iterator<User> it = users.iterator();
 		while (it.hasNext()) {
-			User user = it.next();
+			final User user = it.next();
 			if (user.getEmail().equalsIgnoreCase(email)) {
 				it.remove();
 				return user;
@@ -26,7 +26,7 @@ public class UserDaoImplForList implements UserDao {
 		return null;
 	}
 
-	public void insert(User user) {
+	public void insert(final User user) {
 		users.add(user);
 	}
 
@@ -34,9 +34,8 @@ public class UserDaoImplForList implements UserDao {
 		return users;
 	}
 
-	public User selectByEmail(String email) {
-		for (int i = 0; i < users.size(); i++) {
-			User user = users.get(i);
+	public User selectByEmail(final String email) {
+		for (final User user : users) {
 			if (user.getEmail().equals(email)) {
 				return user;
 			}
@@ -44,11 +43,12 @@ public class UserDaoImplForList implements UserDao {
 		return null;
 	}
 
-	public void update(User user) {
-		User u = selectByEmail(user.getEmail());
-		if (u != null) {
-			users.remove(u);
+	public boolean update(final User userData) {
+		final User user = selectByEmail(userData.getEmail());
+		if (user != null) {
+			users.remove(user);
 			users.add(user);
 		}
+		return user != null;
 	}
 }
