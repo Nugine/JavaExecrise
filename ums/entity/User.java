@@ -4,20 +4,14 @@ public class User {
 	private String email;
 	private String userName;
 	private String sex;
-    private String hobbies;
-    	
-	public User() {
-		super();
-	}
-	
+	private String hobbies;
+
 	public User(String email, String userName, String sex, String hobbies) {
-		super();
 		this.email = email;
 		this.userName = userName;
 		this.sex = sex;
 		this.hobbies = hobbies;
 	}
-
 
 	public String getEmail() {
 		return email;
@@ -35,6 +29,14 @@ public class User {
 		this.userName = userName;
 	}
 
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
 	public String getHobbies() {
 		return hobbies;
 	}
@@ -43,10 +45,4 @@ public class User {
 		this.hobbies = hobbies;
 	}
 
-	public String getSex() {
-		return sex;
-	}
-	public void setSex(String sex) {
-		this.sex = sex;
-	}
 }
