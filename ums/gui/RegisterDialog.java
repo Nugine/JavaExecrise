@@ -165,7 +165,7 @@ public class RegisterDialog extends JDialog {
                 return;
             }
 
-            if (userDao.selectByEmail(email) != null) { // 邮箱已注册
+            if (userDao.selectByEmail(email) != null) {
                 JOptionPane.showMessageDialog(null, "该邮箱已存在", "提示", JOptionPane.PLAIN_MESSAGE);
                 textFieldUserEmail.setText("");
                 textFieldUserEmail.grabFocus();
@@ -184,7 +184,7 @@ public class RegisterDialog extends JDialog {
         }
     }
 
-    public RegisterDialog(final JFrame parent, final String msg, final UserDao userDao, final User user) { // 修改对话框
+    public RegisterDialog(final JFrame parent, final String msg, final UserDao userDao, final User user) {
         this(parent, msg, userDao);
 
         textFieldUserEmail.setEditable(false);

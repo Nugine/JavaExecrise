@@ -51,7 +51,6 @@ public class DeleteDialog extends JDialog {
     }
 
     private void setPosition() {
-        // 计算对话框的显示位置
         final int parentX = parent.getX();
         final int parentY = parent.getY();
         final int parentWidth = parent.getWidth();
