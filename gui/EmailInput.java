@@ -36,13 +36,10 @@ public class EmailInput extends JFrame {
 
         this.setBounds(300, 200, 300, 120);
         this.setResizable(false);
-        this.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        this.userNameTextField.addFocusListener(new FocusListener() {
-            public void focusGained(FocusEvent e) {
-                // pass
-            }
-
+        this.userNameTextField.addFocusListener(new FocusAdapter() {
+            @Override
             public void focusLost(FocusEvent e) {
                 if (!EmailInput.this.isShowing()) {
                     return;
@@ -57,11 +54,8 @@ public class EmailInput extends JFrame {
             }
         });
 
-        this.emailTextField.addFocusListener(new FocusListener() {
-            public void focusGained(FocusEvent e) {
-                // pass
-            }
-
+        this.emailTextField.addFocusListener(new FocusAdapter() {
+            @Override
             public void focusLost(FocusEvent e) {
                 if (!EmailInput.this.isShowing()) {
                     return;
