@@ -16,8 +16,8 @@ public class Test {
 
         menu.showMenu();
 
-        DislikedFoodMenu dfmenu = new DislikedFoodMenu();
-        dfmenu.addDislikedFood("葱爆羊肉");
+        DislikedFoodMenu dislikedFoodMenu = new DislikedFoodMenu();
+        dislikedFoodMenu.addDislikedFood("葱爆羊肉");
 
         List<String> ordered = new ArrayList<String>();
 
@@ -32,7 +32,7 @@ public class Test {
 
             String food = menu.getFoodByNo(no);
             try {
-                dfmenu.checkFood(food);
+                dislikedFoodMenu.checkFood(food);
             } catch (BadFoodException e) {
                 System.out.printf("有人不喜欢该菜品...\n", food);
                 continue;
