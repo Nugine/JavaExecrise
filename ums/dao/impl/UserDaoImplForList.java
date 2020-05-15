@@ -47,7 +47,7 @@ public class UserDaoImplForList implements UserDao {
         final User user = selectByEmail(userData.getEmail());
         if (user != null) {
             users.remove(user);
-            users.add(user);
+            users.add(userData);
         }
         return user != null;
     }
