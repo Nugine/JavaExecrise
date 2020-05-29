@@ -1,17 +1,14 @@
 package io;
 
-import java.io.BufferedReader;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 
 public class Test {
     public static void main(String[] args) {
+        BufferedReader reader = null;
+        PrintWriter writer = null;
         try {
-            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("example.txt")));
-            PrintWriter writer = new PrintWriter(new FileOutputStream("example2.txt"));
+            reader = new BufferedReader(new InputStreamReader(new FileInputStream("example.txt")));
+            writer = new PrintWriter(new FileOutputStream("example2.txt"));
 
             for (int i = 1;; ++i) {
                 String line = reader.readLine();
@@ -21,11 +18,18 @@ public class Test {
                 writer.println(String.format("%d. %s", i, line));
                 writer.flush();
             }
-            reader.close();
-            writer.close();
         } catch (IOException e) {
             e.printStackTrace();
-            return;
+        }
+        try {
+            if (reader != null) {
+                reader.close();
+            }
+            if (writer != null) {
+                writer.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
